@@ -2,6 +2,7 @@ package Tests;
 
 
 import Renderer.GameBoard;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.swing.*;
@@ -11,10 +12,8 @@ import javax.swing.*;
  */
 public class RendererTest {
 
-
-    @Test
-    public void testGameBoardDraw() throws Exception {
-
+    @Before
+    public void setUp() {
         GameBoard board = new GameBoard();
         System.out.println("Created GUI on EDT? "+ SwingUtilities.isEventDispatchThread());
         JFrame f = new JFrame("GameBoard");
@@ -24,6 +23,11 @@ public class RendererTest {
         f.setVisible(true);
         f.setResizable(false);
 
+    }
 
+    @Test
+    public void testGameBoardDraw() throws Exception {
+
+        System.out.println("Test");
     }
 }

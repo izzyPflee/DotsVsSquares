@@ -35,5 +35,6 @@ public class Renderer {
     }
     public void update(List<Coordinate> playerCoordinates){
 
+        _gameBoard.updateObjects(playerCoordinates);
     }
 }

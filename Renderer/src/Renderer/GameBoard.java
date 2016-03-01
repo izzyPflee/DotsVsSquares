@@ -65,14 +65,17 @@ public class GameBoard extends JPanel {
         //allocate space for rectangles
         _rectangles = new Rectangle[coords.size()];
 
-        int i = 0;
+//        int i = 0;
 
-        for(Coordinate coord: coords){
-            _rectangles[i++] = new Rectangle(coord.getPoint());
+//        for(Coordinate coord: coords){
+//            _rectangles[i++] = new Rectangle(coord.getPoint());
+//        }
+
+        for(int i = 0; i < coords.size(); i++){
+            _rectangles[i] = new Rectangle(coords.get(i).getPoint());
         }
 
         this.repaint();
-
 
     }
 
