@@ -21,6 +21,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
+import java.util.List;
 
 /**
  * Gameboard used from pong project
@@ -28,18 +29,12 @@ import java.awt.event.MouseMotionAdapter;
 public class GameBoard extends JPanel {
 
 
-    Rectangle paddle1 = new Rectangle(150, 20);
-    Rectangle paddle2 = new Rectangle(150, 20);
-    private final int PIXEL_STEP = 20; // pixel number to move paddle for each key press
-    private final int LEFT = 37; // keyCode for left arrow
-    private final int RIGHT = 39; // keyCode for right arrow
+    private Rectangle[] _rectangles;
 
     public GameBoard() {
 
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setBackground(Color.BLACK);
-
-
 
     }
 
@@ -51,15 +46,35 @@ public class GameBoard extends JPanel {
     }
 
     public void paintPaddle(Graphics g){
-        g.setColor(Color.CYAN);
-        g.fillRect(paddle1.x, this.getHeight() - paddle1.height, paddle1.width, paddle1.height);
-        g.setColor(Color.RED);
-        g.fillRect(paddle2.x, 0, paddle2.width, paddle2.height);
-        g.setColor(Color.BLACK);
-        g.drawRect(paddle1.x, this.getHeight() - paddle1.height, paddle1.width, paddle1.height);
-        g.drawRect(paddle2.x, paddle2.height, paddle2.width, paddle2.height);
+
+
+        if(_rectangles == null)
+            return;
+
+        for(Rectangle rect: _rectangles){
+            g.setColor(Color.CYAN);
+            g.fillRect(rect.x, rect.y, rect.width, rect.height);
+            g.drawRect(rect.x, rect.y, rect.width, rect.height);
+        }
     }
-    //TODO: gameboard should paint components(circle of player) where coordinates indicate
+
+    //TODO: should we make new rectangles every frame update or keep array rectangles?
+
+    public void updateObjects(List<Coordinate> coords){
+
+        //allocate space for rectangles
+        _rectangles = new Rectangle[coords.size()];
+
+        int i = 0;
+
+        for(Coordinate coord: coords){
+            _rectangles[i++] = new Rectangle(coord.getPoint());
+        }
+
+        this.repaint();
+
+
+    }
 
 
 
