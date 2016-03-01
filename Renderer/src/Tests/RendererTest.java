@@ -2,7 +2,7 @@ package Tests;
 
 
 import Renderer.GameBoard;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.swing.*;
 
@@ -10,6 +10,7 @@ import javax.swing.*;
  * Created by Isaac on 2/29/2016.
  */
 public class RendererTest {
+
 
     @Test
     public void testGameBoardDraw() throws Exception {
