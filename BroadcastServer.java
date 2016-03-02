@@ -44,15 +44,18 @@ public class BroadcastServer implements Runnable{
     
     @Override
     public void run() {
-    		try { while (isServing)
-                 {
-            	  		InetAddress group = InetAddress.getByName("228.0.0.4");
-            	  		generateRandomTest();
-            	  		printPlayers();
-            	  		DatagramPacket packet = new DatagramPacket(players_coordinates, players_coordinates.length, group, 8888);
-            	  		socket.send(packet);
-                  }
-         
+    		try { 
+    			
+    			InetAddress group = InetAddress.getByName("228.0.0.4");
+    			DatagramPacket packet;
+			while (isServing)
+             {
+        	  		generateRandomTest();
+        	  		printPlayers();
+        	  		packet = new DatagramPacket(players_coordinates, players_coordinates.length, group, 8888);
+        	  		socket.send(packet);
+              }
+     
           } catch (IOException e) {
                 e.printStackTrace();
                 isServing = false;
