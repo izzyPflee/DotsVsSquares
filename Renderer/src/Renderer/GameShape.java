@@ -14,14 +14,15 @@ public class GameShape implements Serializable{
     //members
     private int _shapeID;
     private int _moveSpeed;
-//    private enum _shapeType;
+    private ShapeType _shapeType;
     private int _x;
     private int _y;
     private int _w;
     private int _h;
 
-    public GameShape(int moveSpeed, int x, int y, int w, int h){
+    public GameShape(int moveSpeed, int x, int y, int w, int h, ShapeType shapeType){
         _moveSpeed = moveSpeed;
+        _shapeType = shapeType;
         _x = x;
         _y = y;
         _w = w;
