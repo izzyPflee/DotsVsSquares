@@ -2,25 +2,30 @@ package Renderer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
 import static java.awt.event.KeyEvent.*;
 
 /**
  * Created by isaac on 3/2/16.
  */
-public class GameShape{
+public class GameShape implements Serializable{
 
     //members
     private int _shapeID;
     private int _moveSpeed;
-    private enum _shapeType;
+//    private enum _shapeType;
     private int _x;
     private int _y;
     private int _w;
     private int _h;
 
-    public GameShape(){
-
+    public GameShape(int moveSpeed, int x, int y, int w, int h){
+        _moveSpeed = moveSpeed;
+        _x = x;
+        _y = y;
+        _w = w;
+        _h = h;
     }
 
     //methods
