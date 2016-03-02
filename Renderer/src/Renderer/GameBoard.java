@@ -1,8 +1,7 @@
 package Renderer;
 
 
-import java.awt.Color;
-import java.awt.Rectangle;
+import java.awt.*;
 
 import javax.swing.SwingUtilities;
 
@@ -12,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.BorderFactory;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.KeyEvent;
@@ -65,14 +62,13 @@ public class GameBoard extends JPanel {
         //allocate space for rectangles
         _rectangles = new Rectangle[coords.size()];
 
-//        int i = 0;
 
-//        for(Coordinate coord: coords){
-//            _rectangles[i++] = new Rectangle(coord.getPoint());
-//        }
+        int testW = 10;
+        int testH = 10;
 
         for(int i = 0; i < coords.size(); i++){
-            _rectangles[i] = new Rectangle(coords.get(i).getPoint());
+           Point curPoint =  coords.get(i).getPoint();
+            _rectangles[i] = new Rectangle((int)curPoint.getX(),(int)curPoint.getY(), testW, testH);
         }
 
         this.repaint();
