@@ -1,3 +1,6 @@
+//If getting Can't assign requested address, pass this argument
+//-Djava.net.preferIPv4Stack=true
+
 
 public class ServerTester {
 
@@ -8,20 +11,23 @@ public class ServerTester {
 		
 		try{
 			Thread serverThread = new Thread(new  BroadcastServer (MAX_PLAYERS));
-			serverThread.start();
+		serverThread.start();
 			
-			 byte[] playersCoordinates = new byte[ Integer.SIZE * MAX_PLAYERS * 2];
+			 byte[] playersCoordinates = new byte[MAX_PLAYERS * 4];
 	
+			 System.out.println("Size:" + playersCoordinates.length);
+			 
+			 
 			Thread clientThread1 = new Thread(new ClientGameStateReceiver(++i , playersCoordinates, MAX_PLAYERS));
 			Thread clientThread2 = new Thread(new ClientGameStateReceiver(++i , playersCoordinates, MAX_PLAYERS));
 			Thread clientThread3 = new Thread(new ClientGameStateReceiver(++i , playersCoordinates, MAX_PLAYERS));
 	
-			clientThread1.start();
+		clientThread1.start();
 				
 			Thread.sleep(10000);
-			clientThread2.start();
+			//clientThread2.start();
 			Thread.sleep(10000);
-			clientThread3.start();
+			//clientThread3.start();
 		
 		}catch(Exception e)
 		{
