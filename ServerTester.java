@@ -4,14 +4,15 @@
 
 public class ServerTester {
 
-	public static void main(String[] args) {
-		System.out.println( "Server is starting...");
+	public static void main(String[] args) 
+	{
+		
 		int i = 0;
 		final int MAX_PLAYERS = 5;
 		
 		try{
 			Thread serverThread = new Thread(new  BroadcastServer (MAX_PLAYERS));
-		serverThread.start();
+			serverThread.start();
 			
 			 byte[] playersCoordinates = new byte[MAX_PLAYERS * 4];
 	
@@ -24,10 +25,10 @@ public class ServerTester {
 	
 		clientThread1.start();
 				
-			Thread.sleep(10000);
-			//clientThread2.start();
-			Thread.sleep(10000);
-			//clientThread3.start();
+			//Thread.sleep(10000);
+			clientThread2.start();
+			//Thread.sleep(10000);
+			clientThread3.start();
 		
 		}catch(Exception e)
 		{
