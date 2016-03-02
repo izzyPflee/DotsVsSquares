@@ -1,6 +1,7 @@
 package Tests;
 
 import Renderer.GameShape;
+import Renderer.ShapeType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ public class GameShapeTest {
     @Test
     public void checkObjectSerialization() throws Exception{
 
-        GameShape shape = new GameShape(10,5,10,15,20);
+        GameShape shape = new GameShape(10, ShapeType.SQUARE, 5,10,15,20);
         FileOutputStream fout = new FileOutputStream("test");
         ObjectOutputStream oOut = new ObjectOutputStream(fout);
 
