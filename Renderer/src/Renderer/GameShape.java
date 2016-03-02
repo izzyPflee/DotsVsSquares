@@ -20,7 +20,7 @@ public class GameShape implements Serializable{
     private int _w;
     private int _h;
 
-    public GameShape(int moveSpeed, int x, int y, int w, int h, ShapeType shapeType){
+    public GameShape(int moveSpeed, ShapeType shapeType, int x, int y, int w, int h){
         _moveSpeed = moveSpeed;
         _shapeType = shapeType;
         _x = x;
