@@ -1,3 +1,5 @@
+package Client;
+
 import java.awt.Point;
 import java.io.*;
 import java.net.*;
