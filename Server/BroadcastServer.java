@@ -54,6 +54,7 @@ public class BroadcastServer implements Runnable{
     			  
     			   
     			try {
+    				
     				 InetAddress groupAddress = InetAddress.getByName("228.0.0.4");
     				
     				 Scanner kb = new Scanner(System.in);
@@ -62,8 +63,8 @@ public class BroadcastServer implements Runnable{
     				kb.nextLine();
     				
     				
-    				Point pt = new Point(2,3);
-    				Point [] points = {new Point(2,3), new Point(12,13), new Point(22,23), new Point(32,33), new Point(42,43)};
+    				
+    				Point [] points = {new Point(2,3), new Point(12,13), new Point(22,23), new Point(32,33), new Point(42,43), new Point(32,33), new Point(42,43), new Point(32,33), new Point(42,43)};
     			
     				ByteArrayOutputStream byteStream = new ByteArrayOutputStream(5000);
     				
