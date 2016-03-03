@@ -16,12 +16,14 @@ public class ClientGameStateReceiver implements Runnable
 		_id =id;
 	}
 
-	private void printPlayers(GameShape[] playerShapes)
+	private void printPlayers(GameShape playerShapes)
 	{
+		System.out.println(playerShapes.toString());
+		/*
 		for(int i = 0; i< playerShapes.length; i++)
 		{	
 			System.out.println("Client #" + _id +" received: " + playerShapes[i].toString());
-		}
+		}*/
 	}
 	
 	/*
@@ -70,7 +72,7 @@ public class ClientGameStateReceiver implements Runnable
 				
 				try{
 					
-					GameShape[] playerShapes = (GameShape[]) is.readObject();
+					GameShape playerShapes = (GameShape) is.readObject();
 					
 					printPlayers(playerShapes);
 					

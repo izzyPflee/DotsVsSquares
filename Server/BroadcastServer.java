@@ -60,9 +60,6 @@ public class BroadcastServer implements Runnable{
 		try {
 
 			InetAddress groupAddress = InetAddress.getByName("228.0.0.4");
-
-
-
 			ObjectOutputStream os =  null;
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream(5000);
 			BufferedOutputStream bos = new BufferedOutputStream(byteStream);
@@ -77,13 +74,15 @@ public class BroadcastServer implements Runnable{
 				printPlayers();
 
 
-				os.writeUnshared(_playerShapes);
+				os.writeUnshared( new GameShape(10, ShapeType.CIRCLE, 1, 1, 20, 20));
 				//os.reset(); //turns out to not be necessary
 				os.flush();
 
 
 
 				byte[] sendBuf = byteStream.toByteArray();
+				
+				System.out.println("This is the size of the packet:" + sendBuf.length);
 				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, 8888);
 
 				int byteCount = packet.getLength();

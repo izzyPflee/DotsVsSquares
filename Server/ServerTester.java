@@ -13,17 +13,13 @@ public class ServerTester {
 	{
 
 		int i = 0;
-		final int MAX_PLAYERS = 5;
+		final int MAX_PLAYERS = 1;
 		GameShape[] playerShapes = new GameShape[MAX_PLAYERS];
 		
 		try{
 			Thread serverThread = new Thread(new  BroadcastServer (playerShapes));
 			serverThread.start();
-			
-			 byte[] playersCoordinates = new byte[MAX_PLAYERS * 4];
 	
-			 System.out.println("Size:" + playersCoordinates.length);
-			 
 			 
 			Thread clientThread1 = new Thread(new ClientGameStateReceiver(++i));
 			Thread clientThread2 = new Thread(new ClientGameStateReceiver(++i));
@@ -32,7 +28,7 @@ public class ServerTester {
 		clientThread1.start();
 				
 			Thread.sleep(10000);
-			clientThread2.start();
+		//	clientThread2.start();
 			//Thread.sleep(10000);
 			//clientThread3.start();
 		
