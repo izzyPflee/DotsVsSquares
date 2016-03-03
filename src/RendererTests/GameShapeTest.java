@@ -21,6 +21,12 @@ public class GameShapeTest {
 
     @Test
     public void testCheckCollision() throws Exception {
+        GameShape shape1 = new GameShape(10, ShapeType.SQUARE, 5,15,10,10);
+        GameShape shape2 = new GameShape(10, ShapeType.SQUARE, 15,5,10,10);
+
+        boolean val = shape1.checkCollision(shape2);
+        System.out.println(val);
+
 
     }
 
