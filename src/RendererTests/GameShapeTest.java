@@ -1,4 +1,4 @@
-package Tests;
+package RendererTests;
 
 import Renderer.GameShape;
 import Renderer.ShapeType;
