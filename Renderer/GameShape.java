@@ -117,4 +117,18 @@ public class GameShape implements Serializable{
     public void set_h(int _h) {
         this._h = _h;
     }
+    
+    @Override
+    public String toString()
+    {
+    	  StringBuilder sb = new StringBuilder();
+    	  sb.append("Shape: id=" + _shapeID);
+    	  sb.append(" speed=" +  _moveSpeed);
+    	  sb.append(" type=" + _shapeType);
+    	  sb.append(" x=" + _x);
+    	  sb.append(" y=" + _y);
+    	  sb.append(" width=" + _w);
+    	  sb.append(" height=" + _h);
+    	  return sb.toString();
+    }
 }

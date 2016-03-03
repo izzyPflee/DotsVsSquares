@@ -4,109 +4,104 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import Renderer.GameShape;
+import Renderer.ShapeType;
+
 public class BroadcastServer implements Runnable{
 
-    private DatagramSocket socket = null;
-    private boolean isServing = true;
-    private long waitTime = 50;
-    private final int MAX_PLAYER;
-    private byte[] players_coordinates;
-    
-    
-    public BroadcastServer(int maxPlayers) throws IOException 
-    {
-    		System.out.println("Size of Int " + Integer.SIZE);
-    		MAX_PLAYER = maxPlayers;
-    		players_coordinates = new byte[ MAX_PLAYER * 4];
-	    	
-    		try{
-    			socket = new DatagramSocket(8887);
-	    	}catch(Exception e)
-	    	{
-	    		e.printStackTrace();
-	    	}
-    }
-    
-    private void generateRandomTest()
-    {
-    	int testInt = 1024;
+	private DatagramSocket socket = null;
+	private boolean isServing = true;
+	private long waitTime = 50;
+	private final int MAX_PLAYERS;
+	private GameShape[] _playerShapes;
+
+
+	public BroadcastServer(GameShape[] playerShapes) throws IOException 
+	{
+		System.out.println("Size of Int " + Integer.SIZE);
+		MAX_PLAYERS = playerShapes.length;
+		_playerShapes = playerShapes;
+
+		try{
+			socket = new DatagramSocket(8887);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private void setRandomPlayerShapes()
+	{
 		Random rand = new Random();
-		for(int i = 0; i < MAX_PLAYER*4; i += 4)
-    	{
-    		players_coordinates[i] =(byte) (testInt >> 8);// (byte) rand.nextInt(100);
-    		players_coordinates[i + 1] =(byte) (testInt <<8);
-    		players_coordinates[i +2] =(byte) (testInt >> 8);// (byte) rand.nextInt(100);
-    		players_coordinates[i + 3] =(byte) (testInt <<8);
-    	}
-    }
-   
-    private void printPlayers()
-    {
-     	System.out.print("Server says: ");
-     	for(int i = 0; i < MAX_PLAYER*4; i ++)
-     		System.out.print(players_coordinates[i] + ", ");
-     	System.out.println("");
-    }
-    
-    @Override
-    public void run() {
-    		
-    			  
-    			   
-    			try {
-    				 InetAddress groupAddress = InetAddress.getByName("228.0.0.4");
-    				
-    				 Scanner kb = new Scanner(System.in);
-    				
-    				System.out.println("Server enter a key...");
-    				kb.nextLine();
-    				
-    				
-    				Point pt = new Point(2,3);
-    				Point [] points = {new Point(2,3), new Point(12,13), new Point(22,23), new Point(32,33), new Point(42,43)};
-    			
-    				ByteArrayOutputStream byteStream = new ByteArrayOutputStream(5000);
-    				
-    				ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(byteStream));
-    				
-    				os.flush();
-    				os.writeObject(points);
-    				os.flush();
-    				
-    				byte[] sendBuf = byteStream.toByteArray();
-    				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, 8888);
-    			
-    				 int byteCount = packet.getLength();
-    			
-    				  socket.send(packet);
-    				  os.close();
-    				
-    				
-    			/*	
-    				
-    				
+		_playerShapes = new GameShape[MAX_PLAYERS];
+		int i = 0;
+		for(GameShape player: _playerShapes)
+		{
+			int x = rand.nextInt(100);
+			int y = rand.nextInt(100);
+			_playerShapes[i] = new GameShape(10, ShapeType.CIRCLE, x, y, 20, 20);
+			_playerShapes[i].set_shapeID(i++);
+		}
+	}
+
+	private void printPlayers()
+	{
+		System.out.print("Server broadcast: ");
+
+		for(GameShape player: _playerShapes)
+		{
+			System.out.println(player.toString());
+		}
+		System.out.println("***********************************");
+	}
+
+	@Override
+	public void run() {
+		try {
+
+			InetAddress groupAddress = InetAddress.getByName("228.0.0.4");
+
+
+
+			ObjectOutputStream os =  null;
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream(5000);
+			BufferedOutputStream bos = new BufferedOutputStream(byteStream);
+
+			//os = new ObjectOutputStream(new BufferedOutputStream(byteStream));
 			while (isServing)
-             {
-        	  		
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-        	  		try{
-        	  		Thread.sleep(1000);
-        	  		}catch(Exception e){}
-              }*/
-     
-          } catch (IOException e) {
-                e.printStackTrace();
-                isServing = false;
-            }
-        	socket.close();
-    }
+			{
+				byteStream.reset();// had to get new objects sent each time...
+
+				os = new ObjectOutputStream(bos);
+				setRandomPlayerShapes();//Keep testing sending random new coordinates of players
+				printPlayers();
+
+
+				os.writeUnshared(_playerShapes);
+				//os.reset(); //turns out to not be necessary
+				os.flush();
+
+
+
+				byte[] sendBuf = byteStream.toByteArray();
+				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, 8888);
+
+				int byteCount = packet.getLength();
+
+				socket.send(packet);
+
+
+				try{
+					Thread.sleep(1000);
+				}catch(Exception e){}
+
+			}//end while
+
+			os.close();
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			isServing = false;
+		}
+	}
 }
