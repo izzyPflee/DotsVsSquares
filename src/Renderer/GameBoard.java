@@ -62,6 +62,7 @@ public class GameBoard extends JPanel {
             if(curShape.get_shapeType() == ShapeType.SQUARE){
                 _shapes[i] = new Rectangle(curShape.get_x(),curShape.get_y(), curShape.get_w(), curShape.get_h());
             }
+            //add support for circles
 
         }
 
