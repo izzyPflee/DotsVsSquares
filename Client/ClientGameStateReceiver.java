@@ -1,3 +1,5 @@
+package Client;
+
 import java.awt.Point;
 import java.io.*;
 import java.net.*;
@@ -54,13 +56,14 @@ public class ClientGameStateReceiver implements Runnable
 	        ByteArrayInputStream byteStream = new ByteArrayInputStream(recvBuf);
 	        
 	        ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
+	        
 	        try{
 	        	
 	        	Point[] test = (Point[]) is.readObject();
 	        	
 	        	for(int i = 0; i<5; i++)
 	        	{	
-	        	  System.out.println("Client received: " + test[i]);
+	        	  System.out.println("Client #" + _id +" received: " + test[i]);
 	        	}
 	        	
 	        }catch(StreamCorruptedException e)
