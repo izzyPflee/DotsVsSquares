@@ -143,4 +143,12 @@ public class GameShape implements Serializable{
     public void set_h(int _h) {
         this._h = _h;
     }
+
+    public ShapeType get_shapeType() {
+        return _shapeType;
+    }
+
+    public void set_shapeType(ShapeType _shapeType) {
+        this._shapeType = _shapeType;
+    }
 }

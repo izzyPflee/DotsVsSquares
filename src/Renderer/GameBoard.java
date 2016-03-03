@@ -3,21 +3,10 @@ package Renderer;
 
 import java.awt.*;
 
-import javax.swing.SwingUtilities;
 
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.BorderFactory;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseMotionAdapter;
 import java.util.List;
 
 /**
@@ -26,7 +15,7 @@ import java.util.List;
 public class GameBoard extends JPanel {
 
 
-    private Rectangle[] _rectangles;
+    private Shape[] _shapes;
 
     public GameBoard() {
 
@@ -39,36 +28,41 @@ public class GameBoard extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.paintPaddle(g);
+        this.paintShape(g);
     }
 
-    public void paintPaddle(Graphics g){
+    public void paintShape(Graphics g){
 
 
-        if(_rectangles == null)
+        if(_shapes == null)
             return;
 
-        for(Rectangle rect: _rectangles){
+        for(Shape shape: _shapes){
+
+            //get dimensions of the shape(in the shape of a rectangle)
+            //see: Shape interface
+            Rectangle rect = shape.getBounds();
+
             g.setColor(Color.CYAN);
-            g.fillRect(rect.x, rect.y, rect.width, rect.height);
-            g.drawRect(rect.x, rect.y, rect.width, rect.height);
+            g.fillRect((int)rect.getX(), (int)rect.getY(), (int)rect.getWidth(), (int)rect.getHeight());
+            g.drawRect((int)rect.getX(), (int)rect.getY(), (int)rect.getWidth(), (int)rect.getHeight());
         }
     }
 
     //TODO: should we make new rectangles every frame update or keep array rectangles?
 
-    public void updateObjects(List<Coordinate> coords){
+    public void updateObjects(List<GameShape> gameShapes){
 
-        //allocate space for rectangles
-        _rectangles = new Rectangle[coords.size()];
+        //allocate space for shape
+        _shapes = new Shape[gameShapes.size()];
 
+        for(int i = 0; i < gameShapes.size(); i++){
+            GameShape curShape = gameShapes.get(i);
+            //create rectangle object for square
+            if(curShape.get_shapeType() == ShapeType.SQUARE){
+                _shapes[i] = new Rectangle(curShape.get_x(),curShape.get_y(), curShape.get_w(), curShape.get_h());
+            }
 
-        int testW = 10;
-        int testH = 10;
-
-        for(int i = 0; i < coords.size(); i++){
-           Point curPoint =  coords.get(i).getPoint();
-            _rectangles[i] = new Rectangle((int)curPoint.getX(),(int)curPoint.getY(), testW, testH);
         }
 
         this.repaint();

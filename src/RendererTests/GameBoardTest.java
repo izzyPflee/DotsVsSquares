@@ -33,15 +33,9 @@ public class GameBoardTest {
 
 
         //add list of coordinates for rendering
-        List<Coordinate> coords = new LinkedList<Coordinate>();
-        Coordinate point1 = new GamePoint(10,10);
-        Coordinate point2 = new GamePoint(20,20);
-
-        coords.add(point1);
-        coords.add(point2);
+        List<Renderer.GameShape> coords = new LinkedList<Coordinate>();
 
 
-        board.updateObjects(coords);
 
 
     }
