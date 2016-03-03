@@ -61,7 +61,8 @@ public class ClientGameStateReceiver implements Runnable
 	        	
 	        	Point[] test = (Point[]) is.readObject();
 	        	
-	        	for(int i = 0; i<5; i++)
+	        	
+	        	for(int i = 0; i< test.length; i++)
 	        	{	
 	        	  System.out.println("Client #" + _id +" received: " + test[i]);
 	        	}
