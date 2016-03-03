@@ -1,8 +1,7 @@
 package RendererTests;
 
-import Renderer.GameBoard;
-import Renderer.GamePoint;
-import Renderer.Coordinate;
+import Renderer.*;
+
 
 import javax.swing.*;
 import java.util.LinkedList;
@@ -33,7 +32,16 @@ public class GameBoardTest {
 
 
         //add list of coordinates for rendering
-        List<Renderer.GameShape> coords = new LinkedList<Coordinate>();
+        List<GameShape> gameShapes = new LinkedList<GameShape>();
+
+        GameShape shape1 = new GameShape(10, ShapeType.SQUARE, 5,15,10,10);
+        GameShape shape2 = new GameShape(10, ShapeType.SQUARE, 15,5,10,10);
+
+        gameShapes.add(shape1);
+        gameShapes.add(shape2);
+
+        board.updateObjects(gameShapes);
+
 
 
 
