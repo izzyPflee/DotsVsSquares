@@ -2,7 +2,7 @@ package Tests;
 
 
 import Renderer.GameBoard;
-import org.testng.annotations.Test;
+//import org.testng.annotations.Test;
 
 import javax.swing.*;
 
@@ -11,8 +11,13 @@ import javax.swing.*;
  */
 public class RendererTest {
 
-    @Test
-    public void testGameBoardDraw() throws Exception {
+public static void main(String[] args)
+{
+   testGameBoardDraw();
+}
+
+    //@Test
+    public static void testGameBoardDraw() throws Exception {
 
         GameBoard board = new GameBoard();
         System.out.println("Created GUI on EDT? "+ SwingUtilities.isEventDispatchThread());

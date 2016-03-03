@@ -10,11 +10,9 @@ import javax.swing.*;
  */
 public class GameBoardTest {
 
-    public static void main(String[] args) {
-
-
+    public static void main(String[] args) 
+    {
         createAndRenderGameBoard();
-
     }
 
     public static void createAndRenderGameBoard(){
