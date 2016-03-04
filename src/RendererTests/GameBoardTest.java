@@ -23,7 +23,7 @@ public class GameBoardTest {
     }
 
     public static void createAndRenderGameBoard(){
-        Renderer r = new Renderer(1000,1000);
+        Renderer r = new Renderer(800,800);
 
 
 
@@ -38,10 +38,6 @@ public class GameBoardTest {
         gameShapes.add(shape2);
 
         r.update(gameShapes);
-
-
-
-
 
     }
 
