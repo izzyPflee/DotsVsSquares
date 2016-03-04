@@ -14,7 +14,8 @@ public class BroadcastServer implements Runnable{
 	private long waitTime = 50;
 	private final int MAX_PLAYERS;
 	private GameShape[] _playerShapes;
-
+	int x = 0;
+	int y = 0;
 
 	public BroadcastServer(GameShape[] playerShapes) throws IOException 
 	{
@@ -30,73 +31,65 @@ public class BroadcastServer implements Runnable{
 		}
 	}
 
-	private void setRandomPlayerShapes()
+	private byte convertIntToByteUpper(int num)
 	{
-		Random rand = new Random();
-		_playerShapes = new GameShape[MAX_PLAYERS];
-		int i = 0;
-		for(GameShape player: _playerShapes)
-		{
-			int x = rand.nextInt(100);
-			int y = rand.nextInt(100);
-			_playerShapes[i] = new GameShape(10, ShapeType.CIRCLE, x, y, 20, 20);
-			_playerShapes[i].set_shapeID(i++);
-		}
+		return (byte) (num >> 8);
+	}
+	
+	private byte convertIntToByteLower(int num)
+	{
+		return (byte) num;
 	}
 
-	private void printPlayers()
-	{
-		System.out.print("Server broadcast: ");
 
-		for(GameShape player: _playerShapes)
-		{
-			System.out.println(player.toString());
-		}
-		System.out.println("***********************************");
-	}
-
+	/*
+	 * This is just a test so far. It sents the 5 bytes representing a player's id and the top
+	 * and bottom 8-bits of its x and y integer coordinates.
+	 * The client just converts the bytes back to integers with bitwise operators to avoid
+	 * the signed nature of everything in this forsaken language.
+	 * 
+	 * The x and y are just incrementing by one on each iteration as a proof of concept. 
+	 * */
+	
 	@Override
 	public void run() {
 		try {
 
 			InetAddress groupAddress = InetAddress.getByName("228.0.0.4");
-			ObjectOutputStream os =  null;
-			ByteArrayOutputStream byteStream = new ByteArrayOutputStream(5000);
-			BufferedOutputStream bos = new BufferedOutputStream(byteStream);
-
-			//os = new ObjectOutputStream(new BufferedOutputStream(byteStream));
+	
 			while (isServing)
 			{
-				byteStream.reset();// had to get new objects sent each time...
 
-				os = new ObjectOutputStream(bos);
-				setRandomPlayerShapes();//Keep testing sending random new coordinates of players
-				printPlayers();
-
-
-				os.writeUnshared( new GameShape(10, ShapeType.CIRCLE, 1, 1, 20, 20));
-				//os.reset(); //turns out to not be necessary
-				os.flush();
-
-
-
-				byte[] sendBuf = byteStream.toByteArray();
+				byte[] sendBuf = new byte[5];//setRandomPlayerShapes(); //byteStream.toByteArray();
 				
-				System.out.println("This is the size of the packet:" + sendBuf.length);
+				sendBuf[0] = 7; //player id
+				sendBuf[1] = convertIntToByteUpper(x); //player top half x
+				sendBuf[2] = convertIntToByteLower(x); //player bottom half x
+				sendBuf[3] = convertIntToByteUpper(y); //top half x
+				sendBuf[4] = convertIntToByteLower(y); //bottom half y
+
+				System.out.println("Server: x = " + x + " y = " +y);
+				x++; y++;
+				
+				
 				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, 8888);
 
 				int byteCount = packet.getLength();
-
+				
+				//System.out.println("This is the size of the packet:" + byteCount);
 				socket.send(packet);
 
 
 				try{
-					Thread.sleep(1000);
+					Thread.sleep(10);
 				}catch(Exception e){}
 
+				
+				if(x > 1024)
+					isServing = false;
+				
 			}//end while
 
-			os.close();
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
