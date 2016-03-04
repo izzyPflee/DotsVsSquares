@@ -21,8 +21,11 @@ public class Renderer {
         _gridY = gridY;
 
         _gameBoard = new GameBoard();
+        initGameRendererWindow();
+
 
     }
+
 
     private void initGameRendererWindow(){
         System.out.println("Created GUI on EDT? "+ SwingUtilities.isEventDispatchThread());
@@ -33,8 +36,8 @@ public class Renderer {
         f.setVisible(true);
         f.setResizable(false);
     }
-    public void update(List<Coordinate> playerCoordinates){
+    public void update(List<GameShape> gameShapes){
 
-        _gameBoard.updateObjects(playerCoordinates);
+        _gameBoard.updateObjects(gameShapes);
     }
 }
