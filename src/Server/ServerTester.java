@@ -7,6 +7,8 @@ import Renderer.GameShape;
 //-Djava.net.preferIPv4Stack=true
 
 
+import Client.ClientGameStateReceiver;
+
 public class ServerTester {
 
 	public static void main(String[] args) 

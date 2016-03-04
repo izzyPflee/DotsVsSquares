@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.Serializable;
 
 import static java.awt.event.KeyEvent.*;
+import Renderer.ShapeType;
 
 /**
  * Created by isaac on 3/2/16.
@@ -34,16 +35,42 @@ public class GameShape implements Serializable{
     {
         //variables used to check collision
         //check for half width and height in each direction
-        double otherW= otherShape._w/2;
-        double otherH = otherShape._h/2;
+        int otherX = otherShape._x;
+        int otherY = otherShape._y;
+        double otherHalfW= otherShape._w/2;
+        double otherHalfH = otherShape._h/2;
+        double halfW = _w/2;
+        double halfH = _w/2;
 
-        //check boundary collisions
-        if((_x <= (_x + otherW)) && (_x >= (_x - otherW))){
-            if((_y <=(_y + otherH)) && (_y >= (_y - otherH)))
-            {
-                return true;
-            }
-        }
+        //check top right corner of otherShape
+
+        if((otherX + otherHalfW <= _x + halfW) &&
+                (otherX + otherHalfW >= _x - halfW) &&
+                (otherY + otherHalfH<= _y + halfH) &&
+                (otherY + otherHalfH>= _y - halfH))
+            return true;
+
+        //check bottom right corner of otherShape
+        if((otherX + otherHalfW <= _x + halfW) &&
+                (otherX + otherHalfW >= _x - halfW) &&
+                (otherY - otherHalfH<= _y + halfH) &&
+                (otherY - otherHalfH>= _y - halfH))
+            return true;
+
+        //check top left corner of otherShape
+        if((otherX - otherHalfW <= _x + halfW) &&
+                (otherX - otherHalfW >= _x - halfW) &&
+                (otherY + otherHalfH<= _y + halfH) &&
+                (otherY + otherHalfH>= _y - halfH))
+            return true;
+
+        //check bottom left corner of otherShape
+        if((otherX - otherHalfW <= _x + halfW) &&
+                (otherX - otherHalfW >= _x - halfW) &&
+                (otherY - otherHalfH<= _y + halfH) &&
+                (otherY - otherHalfH>= _y - halfH))
+            return true;
+
 
         return false;
     }
@@ -117,6 +144,7 @@ public class GameShape implements Serializable{
     public void set_h(int _h) {
         this._h = _h;
     }
+
     
     @Override
     public String toString()
@@ -130,5 +158,13 @@ public class GameShape implements Serializable{
     	  sb.append(" width=" + _w);
     	  sb.append(" height=" + _h);
     	  return sb.toString();
+    }
+
+    public ShapeType get_shapeType() {
+        return _shapeType;
+    }
+
+    public void set_shapeType(ShapeType _shapeType) {
+        this._shapeType = _shapeType;
     }
 }
