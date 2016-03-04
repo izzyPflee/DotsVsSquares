@@ -19,7 +19,6 @@ public class ClientGameStateReceiver implements Runnable
 	//for testing
 	private Renderer _renderer;
 	private GameShape _testShape;
-	private GameBoard _board;
 
 	
 	
