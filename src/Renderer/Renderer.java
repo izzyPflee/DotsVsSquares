@@ -21,8 +21,11 @@ public class Renderer {
         _gridY = gridY;
 
         _gameBoard = new GameBoard();
+        initGameRendererWindow();
+
 
     }
+
 
     private void initGameRendererWindow(){
         System.out.println("Created GUI on EDT? "+ SwingUtilities.isEventDispatchThread());

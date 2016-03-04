@@ -2,12 +2,16 @@ package Server;
 
 import Client.ClientGameStateReceiver;
 import Renderer.GameShape;
+import Renderer.GameBoard;
 
 //If getting Can't assign requested address, pass this argument
 //-Djava.net.preferIPv4Stack=true
 
 
 import Client.ClientGameStateReceiver;
+import Renderer.Renderer;
+
+import javax.swing.*;
 
 public class ServerTester {
 
@@ -32,17 +36,19 @@ public class ServerTester {
 		
 		
 		System.out.println(x);
-		
-		
-		
-		
+
+		//for testing
+		Renderer renderer = new Renderer(1000,1000);
+
+
+
 
 		try{
 			Thread serverThread = new Thread(new  BroadcastServer (playerShapes));
 			serverThread.start();
 
 
-			Thread clientThread1 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS));
+			Thread clientThread1 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS, renderer));
 		//	Thread clientThread2 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS));
 		//	Thread clientThread3 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS));
 
@@ -60,5 +66,7 @@ public class ServerTester {
 		}
 
 	}
+
+
 
 }

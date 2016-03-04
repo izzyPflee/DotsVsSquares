@@ -6,20 +6,33 @@ import java.net.*;
 import java.util.*;
 
 import Renderer.GameShape;
+import Renderer.Renderer;
+import Renderer.ShapeType;
+import Renderer.GameBoard;
 
 public class ClientGameStateReceiver implements Runnable
 {    
 	private int _id;
 	private final int MAX_PLAYERS;
 	private  ArrayList<GameShape> _playerShapes;
+
+	//for testing
+	private Renderer _renderer;
+	private GameShape _testShape;
+	private GameBoard _board;
+
 	
 	
-	
-	public ClientGameStateReceiver(int id, int max)
+	public ClientGameStateReceiver(int id, int max, Renderer renderer)
 	{	
 		_id =id;
 		MAX_PLAYERS = max;
 		_playerShapes = new ArrayList<>();
+
+		//for testing
+		_renderer = renderer;
+		_testShape = new GameShape(10, ShapeType.SQUARE, 10,10,10,10);
+		_playerShapes.add(_testShape);
 	}
 
 	private void printPlayers(GameShape playerShapes)
@@ -92,7 +105,14 @@ public class ClientGameStateReceiver implements Runnable
 				int id = recvBuf[0];//
 				int x = parseCoordinate(recvBuf[1], recvBuf[2]);
 				int y = parseCoordinate(recvBuf[3], recvBuf[4]);
-				
+
+
+				//update test shape coords
+				_testShape.set_x(x);
+				_testShape.set_y(y);
+
+				//render test shape
+				_renderer.update(_playerShapes);
 				//char y = parseCoordinate(recvBuf[3], recvBuf[4]);
 				
 				//int xInt = (int) x;
@@ -100,8 +120,12 @@ public class ClientGameStateReceiver implements Runnable
 			
 				
 			//	System.out.println("CLIENT id == " + id );
-				
+
+
+
 				System.out.println("Client's x = "+ x + " y = " + y);
+
+
 			
 				
 				Thread.sleep(10);

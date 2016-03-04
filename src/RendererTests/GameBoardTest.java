@@ -1,7 +1,9 @@
 package RendererTests;
 
-import Renderer.*;
-
+import Renderer.Renderer;
+import Renderer.GameShape;
+import Renderer.GameBoard;
+import Renderer.ShapeType;
 
 import javax.swing.*;
 import java.util.LinkedList;
@@ -21,14 +23,9 @@ public class GameBoardTest {
     }
 
     public static void createAndRenderGameBoard(){
-        GameBoard board = new GameBoard();
-        System.out.println("Created GUI on EDT? "+ SwingUtilities.isEventDispatchThread());
-        JFrame f = new JFrame("GameBoard");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(board);
-        f.setSize(500,700);
-        f.setVisible(true);
-        f.setResizable(false);
+        Renderer r = new Renderer(1000,1000);
+
+
 
 
         //add list of coordinates for rendering
@@ -40,7 +37,7 @@ public class GameBoardTest {
         gameShapes.add(shape1);
         gameShapes.add(shape2);
 
-        board.updateObjects(gameShapes);
+        r.update(gameShapes);
 
 
 
