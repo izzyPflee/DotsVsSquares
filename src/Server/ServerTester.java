@@ -38,7 +38,7 @@ public class ServerTester {
 		System.out.println(x);
 
 		//for testing
-		Renderer renderer = new Renderer(1000,1000);
+	//	Renderer renderer = new Renderer(1000,1000);
 
 
 
@@ -48,13 +48,13 @@ public class ServerTester {
 			serverThread.start();
 
 
-			Thread clientThread1 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS, renderer));
+	//		Thread clientThread1 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS, renderer));
 		//	Thread clientThread2 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS));
 		//	Thread clientThread3 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS));
 
-			clientThread1.start();
+	//		clientThread1.start();
 
-			clientThread1.join();
+	//		clientThread1.join();
 			serverThread.join();
 			//	clientThread2.start();
 			//Thread.sleep(10000);
