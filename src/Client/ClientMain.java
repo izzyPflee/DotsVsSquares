@@ -43,11 +43,11 @@ public class ClientMain extends JFrame implements KeyListener {
 		{
 			
 			socket = new Socket(serverAddress, portNumber);
-			//PrintWriter out =  new PrintWriter(socket.getOutputStream(), true);
-			//out.println("join");
+			PrintWriter out =  new PrintWriter(socket.getOutputStream(), true);
+			out.println("join");
 			//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
-			//System.out.println("Here in client");
+			System.out.println("Here in client");
 			//String startGame = in.readLine();
 			//System.out.println(startGame);
 
@@ -66,7 +66,7 @@ public class ClientMain extends JFrame implements KeyListener {
 
 			renderer = new Renderer(800, 800, this);
 			this.addKeyListener(this);
-			commandForServer = new ClientKeyEventHandler(socket);
+			commandForServer = new ClientKeyEventHandler(out);
 			
 
 		} 

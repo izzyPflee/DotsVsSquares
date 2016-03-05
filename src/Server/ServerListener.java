@@ -23,43 +23,31 @@ public class ServerListener extends Thread{
 	
 	public ServerListener() throws IOException
 	{
-		this.listener = new ServerSocket(portNumber);
-
-		System.out.println("Server started and running");
 	}
 	
 	public void run()
 	{
 		try
 		{
-			//listener.setSoTimeout(1000);
-		}
-		catch(Exception e)
-		{
+		this.listener = new ServerSocket(9898);
+		System.out.println("Server online");
+		
+		Socket socket;
+			socket = listener.accept();
 			
-		}
-		try
-		{
-			while(true)
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			
+			int line = 0;
+			
+			while((char)line != 'Q')
 			{
+				 
+				line = in.read();
+				
+						
+				System.out.println((char)line);
 
-				socket = this.listener.accept();
-				PrintWriter out =  new PrintWriter(socket.getOutputStream(), true);
-				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-				//in.readLine();
-				//out.write("Welcome");
-				//out.flush();
-				System.out.print("Server connected to client");
-				
-				
-				String input = in.readLine();
-				while(!input.equals(KeyEvent.VK_Q + ""));
-				{
-					System.out.println("IN the Server: " + input);
-					input = in.readLine();
-				}
-				
 			}
 		}
 		catch(Exception e)

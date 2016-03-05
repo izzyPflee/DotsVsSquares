@@ -6,6 +6,9 @@ import Renderer.GameBoard;
 import Renderer.ShapeType;
 
 import javax.swing.*;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,19 +16,17 @@ import java.util.List;
  * JFrame constantly closes in normal test methods, so
  * this class is used to test the JFrame and Renderer
  */
-public class GameBoardTest {
+public class GameBoardTest extends JFrame implements KeyListener{
 
     public static void main(String[] args) {
 
 
-        createAndRenderGameBoard();
+        new GameBoardTest();
 
     }
 
-    public static void createAndRenderGameBoard(){
-        Renderer r = new Renderer(800,800);
-
-
+    public GameBoardTest(){
+        Renderer r = new Renderer(800,800, this);
 
 
         //add list of coordinates for rendering
@@ -41,4 +42,21 @@ public class GameBoardTest {
 
     }
 
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

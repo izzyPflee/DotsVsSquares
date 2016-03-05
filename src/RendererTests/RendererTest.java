@@ -10,6 +10,7 @@ import javax.swing.*;
 /**
  * Created by Isaac on 2/29/2016.
  */
+/*
 public class RendererTest {
 
     @Before
@@ -30,4 +31,6 @@ public class RendererTest {
 
         System.out.println("Test");
     }
+    
 }
+*/
