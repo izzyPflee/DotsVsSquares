@@ -24,8 +24,6 @@ public class GameBoard extends JPanel {
 
     }
 
-
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.paintShape(g);

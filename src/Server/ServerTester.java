@@ -10,63 +10,68 @@ import Renderer.GameBoard;
 
 import Client.ClientGameStateReceiver;
 import Renderer.Renderer;
+import Renderer.ShapeType;
 
-import javax.swing.*;
+import java.util.ArrayList;
 
 public class ServerTester {
 
 	public static void main(String[] args) 
 	{
+		//for(int x = 0; x < 100; x ++)
+			//stressTest();
 
-		int i = 0;
-		final int MAX_PLAYERS = 1;
-		GameShape[] playerShapes = new GameShape[MAX_PLAYERS];
-		
-		
-		
-		int test = 465;
-		byte top = (byte) (test >> 8);
-		byte bottom = (byte)test;
-		
-		
-		int topInt = top  & (0xff);
-		int botInt = bottom  & (0xff);
-		int x = (topInt << 8) | botInt;
-		
-		
-		
-		System.out.println(x);
+		int id = 0;
+		final int MAX_PLAYERS = 10;
 
-		//for testing
-		Renderer renderer = new Renderer(1000,1000);
-
-
-
+		
 
 		try{
-			Thread serverThread = new Thread(new  BroadcastServer (playerShapes));
+			Thread serverThread = new Thread(new  BroadcastServer ( MAX_PLAYERS));
 			serverThread.start();
-
-
-			Thread clientThread1 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS, renderer));
-		//	Thread clientThread2 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS));
-		//	Thread clientThread3 = new Thread(new ClientGameStateReceiver(++i, MAX_PLAYERS));
-
-			clientThread1.start();
-
-			clientThread1.join();
-			serverThread.join();
-			//	clientThread2.start();
-			//Thread.sleep(10000);
-			//clientThread3.start();
-
-		}catch(Exception e)
+		}
+		catch(Exception e)
 		{
 			System.out.println("ERRROR!!!!!");
 		}
-
+		
 	}
 
 
+	public static void stressTest()
+	{
+		ArrayList<GameShape> list;
+	
+			
+			long start = System.nanoTime();
+
+			 list = new ArrayList<>();
+
+			for(int i = 0; i < 10; i++)
+			{
+				list.add(new GameShape(10, ShapeType.CIRCLE,50,300, 20, 40));
+			}
+
+
+			long end = System.nanoTime();
+
+			long result = end - start;
+
+			System.out.println("TIME is: " + result/1000);
+
+			start = System.nanoTime();
+
+
+			for(GameShape shape: list)
+			{
+				shape.get_x();
+
+			}
+
+			end = System.nanoTime();
+			long result2 = end - start;
+			System.out.println("TIME is: " + result2 /1000);
+			System.out.println("*******************************************");
+		}
 
 }

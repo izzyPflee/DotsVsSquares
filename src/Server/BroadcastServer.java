@@ -11,17 +11,15 @@ public class BroadcastServer implements Runnable{
 
 	private DatagramSocket socket = null;
 	private boolean isServing = true;
-	private long waitTime = 50;
-	private final int MAX_PLAYERS;
-	private GameShape[] _playerShapes;
+	private final int MAX_PLAYERS ;
+
 	int x = 0;
 	int y = 0;
 
-	public BroadcastServer(GameShape[] playerShapes) throws IOException 
+	public BroadcastServer( int maxPlayers ) throws IOException 
 	{
 		System.out.println("Size of Int " + Integer.SIZE);
-		MAX_PLAYERS = playerShapes.length;
-		_playerShapes = playerShapes;
+		MAX_PLAYERS = maxPlayers;
 
 		try{
 			socket = new DatagramSocket(8887);
@@ -31,12 +29,12 @@ public class BroadcastServer implements Runnable{
 		}
 	}
 
-	private byte convertIntToByteUpper(int num)
+	private static byte convertIntToByteUpper(int num)
 	{
 		return (byte) (num >> 8);
 	}
 	
-	private byte convertIntToByteLower(int num)
+	private static byte convertIntToByteLower(int num)
 	{
 		return (byte) num;
 	}
