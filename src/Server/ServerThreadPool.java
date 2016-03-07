@@ -22,17 +22,20 @@ public class ServerThreadPool
 	private Object _serverKillLock;
 	private Object _clientsConnectedLock;
 	private int _clientsConnected;
-	private ArrayList<Socket> _newClients;
+	private ArrayList<Socket> _clientSocketList;
+	private int _threadIdNum;
 
-	public ServerThreadPool(ArrayList<ServerWorkerThread> tPool)
+	public ServerThreadPool()
 	{
-		this._gameShapes = new GameShape[10];
-		this._threadPool = tPool;
-		this._serverKilled = false;
-		this._serverKillLock = new Object();
-		this._clientsConnectedLock = new Object();
-		this._clientsConnected = 0;
-		this._newClients = new ArrayList<Socket>();
+		_poolSize = 10;
+		_gameShapes = new GameShape[_poolSize];
+		_threadPool = new ArrayList<>();
+		_serverKilled = false;
+		_serverKillLock = new Object();
+		_clientsConnectedLock = new Object();
+		_clientsConnected = 0;
+		_clientSocketList = new ArrayList<Socket>();
+		_threadIdNum = 0;
 	}
 
 	public GameShape[] getGameShapesArray()
@@ -66,17 +69,39 @@ public class ServerThreadPool
 
 	public synchronized boolean addNewClient(Socket newClient)
 	{
-		this._newClients.add(newClient);
+		this._clientSocketList.add(newClient);
 		return true;
 	}
 
 	public synchronized Socket getNewClient()
 	{
-		if(this._newClients.size() > 0)
+		if(this._clientSocketList.size() > 0)
 		{
-			return this._newClients.remove(0);
+			return this._clientSocketList.remove(0);
 		}
 		return null;
+	}
+
+	public void addThreadToThreadPool(ServerWorkerThread workerThread){
+
+		//check for outofbounds error
+		if(_threadIdNum >= _poolSize){
+			System.out.println("Error: Thread pool limited to 9 threads!");
+			return;
+		}
+
+		//check for null worker thread
+		if(workerThread == null){
+			System.out.println("thread is null!");
+			return;
+		}
+
+		//add thread to thread pull
+		_threadPool.add(workerThread);
+		_threadIdNum++;
+
+
+
 	}
 
 }
