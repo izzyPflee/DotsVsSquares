@@ -1,5 +1,8 @@
 package Client;
 
+import java.net.Socket;
+
+
 /*
  * clientMain connects to the server, creates the other threads and sends move requests to the server
  */
@@ -17,6 +20,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Client.ClientKeyEventHandler;
 import Renderer.GameShape;
 import Renderer.Renderer;
 

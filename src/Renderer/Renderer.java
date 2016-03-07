@@ -52,8 +52,5 @@ public class Renderer{
         _gameBoard.updateObjects(gameShapes);
     }
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> perryfeature
