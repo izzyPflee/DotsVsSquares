@@ -10,6 +10,9 @@
 *.class
 *.project
 *.metadata
+.recommenders
+.classpath
+
 
 # idea files #
 *.name
