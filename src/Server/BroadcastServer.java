@@ -10,7 +10,7 @@ public class BroadcastServer implements Runnable{
 	private DatagramSocket socket = null;
 	private boolean isServing = true;
 
-	public BroadcastServer( GameShape[] gameShapes ) throws IOException 
+	public BroadcastServer( ServerThreadPool threadPool ) throws IOException 
 	{
 		try{
 			socket = new DatagramSocket(8887);
@@ -30,6 +30,11 @@ public class BroadcastServer implements Runnable{
 		return (byte) num;
 	}
 
+	private byte[] buildByteArray()
+	{
+		byte[] sendBuf = new byte[50];
+		return sendBuf;
+	}
 
 	/*
 	 * This is just a test so far. It sents the 5 bytes representing a player's id and the top
@@ -49,16 +54,13 @@ public class BroadcastServer implements Runnable{
 			while (isServing)
 			{
 
-				byte[] sendBuf = new byte[5];//setRandomPlayerShapes(); //byteStream.toByteArray();
+				byte[] sendBuf = new byte[50];
 				
 				sendBuf[0] = 7; //player id
-				sendBuf[1] = convertIntToByteUpper(x); //player top half x
-				sendBuf[2] = convertIntToByteLower(x); //player bottom half x
-				sendBuf[3] = convertIntToByteUpper(y); //top half x
-				sendBuf[4] = convertIntToByteLower(y); //bottom half y
-
-				System.out.println("Server: x = " + x + " y = " +y);
-				x++; y++;
+				sendBuf[1] = convertIntToByteUpper(0); //player top half x
+				sendBuf[2] = convertIntToByteLower(0); //player bottom half x
+				sendBuf[3] = convertIntToByteUpper(0); //top half x
+				sendBuf[4] = convertIntToByteLower(0); //bottom half y			
 				
 				
 				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, 8888);
