@@ -5,23 +5,24 @@ import Renderer.GameShape;
 /*
 This file is deprecated and needs to go away forever.
  */
+import Renderer.ShapeType;
 
 public class ClientGameStateParser 
 {
 
 	public static ArrayList<GameShape> parse(byte [] gameState)
 	{
-		ArrayList<GameShape> newListOfGameShapesEverytime = new ArrayList<>();
+		ArrayList<GameShape> gameShapes = new ArrayList<>();
 
-		for(int i = 0; i < gameState.length; i+=5)// Need to fix
+		for(int i = 0; i < gameState.length; i+=5)
 		{
 			int id = gameState[i];
 			int x = parseCoordinate(gameState[i + 1], gameState[i + 2]);
 			int y = parseCoordinate(gameState[i + 3], gameState[i + 4]);
-
+			gameShapes.add(new GameShape(1, ShapeType.SQUARE, x, y, 10, 10));
 		}
 
-		return newListOfGameShapesEverytime;
+		return gameShapes;
 	}
 
 	private static int parseCoordinate(byte topByte, byte botByte)
@@ -44,8 +45,4 @@ public class ClientGameStateParser
 		int bottomNibble = b & 0xf;
 		return bottomNibble;
 	}
-	
-	
-	
-	
 }
