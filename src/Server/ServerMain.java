@@ -16,15 +16,12 @@ public class ServerMain {
 	 */
 	private static final int THREAD_POOL_SIZE = 10;
 
-	public static void main(String[] args) {
-		
-		
-		// TODO Auto-generated method stub
-
+	public static void main(String[] args) 
+	{
 		ServerListener _serverListener;
 		BroadcastServer _broadcastServer;
 		ServerThreadPool _serverThreadPool;
-
+		String ipAddress = "244.0.0.0";
 
 		try 
 		{
@@ -39,7 +36,14 @@ public class ServerMain {
 
 			//start server listener
 			_serverListener = new ServerListener(_serverThreadPool);
-			_serverListener.run();
+			_serverListener.start();
+			
+			_broadcastServer = new BroadcastServer(_serverThreadPool, ipAddress);
+			Thread _broadcastThread = new Thread(_broadcastServer);
+			 _broadcastThread.start();
+			 
+			 
+			 _broadcastThread.join();
 			_serverListener.join();
 		} 
 		catch (Exception e) 
