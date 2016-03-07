@@ -33,7 +33,7 @@ public class ServerMain {
 			_serverThreadPool = new ServerThreadPool();
 			for(int i = 0; i < THREAD_POOL_SIZE; i++){
 				//add i for threadId into serverWorkerThread Instance
-				_serverThreadPool.addThreadToThreadPool(new ServerWorkerThread());
+				_serverThreadPool.addThreadToThreadPool(new ServerWorkerThread(_serverThreadPool, i));
 
 			}
 

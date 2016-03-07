@@ -70,25 +70,21 @@ public class ServerThreadPool
 	public synchronized boolean addNewClient(Socket newClient)
 	{
 		this._clientSocketList.add(newClient);
+		notifyAll();
 		return true;
 	}
 
 	public synchronized Socket getNewClient()
 	{
-		while(this._clientSocketList.size() == 0)
+		while(_clientSocketList.size() == 0)
 		{
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-=======
-		if(this._clientSocketList.size() > 0)
-		{
-			return this._clientSocketList.remove(0);
->>>>>>> isaac-feature
 		}
-		return this._newClients.remove(0);
+		return _clientSocketList.remove(0);
 	}
 
 	public void addThreadToThreadPool(ServerWorkerThread workerThread){
@@ -108,8 +104,6 @@ public class ServerThreadPool
 		//add thread to thread pull
 		_threadPool.add(workerThread);
 		_threadIdNum++;
-
-
 
 	}
 
