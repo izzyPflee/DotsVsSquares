@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package RendererTests;
 
 import Renderer.Renderer;
@@ -61,4 +60,4 @@ public class GameBoardTest extends JFrame implements KeyListener{
 
 	}
 }
-=======
+
