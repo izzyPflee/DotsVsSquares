@@ -97,10 +97,5 @@ public class ClientMain extends JFrame implements KeyListener {
 
 	}
 
-
-
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> olin-dev

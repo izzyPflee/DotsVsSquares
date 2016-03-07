@@ -21,6 +21,7 @@ public class ServerMain {
 		ServerListener serverListener;
 		BroadcastServer broadcastServer;
 		ServerThreadPool serverThreadPool;
+		
 		try 
 		{
 			//Initialize Variables
@@ -38,7 +39,6 @@ public class ServerMain {
 		catch (Exception e) 
 		{
 			System.out.println("ServerListener Failed");
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
