@@ -27,6 +27,7 @@ public class ClientMain extends JFrame implements KeyListener {
 	private ArrayList<GameShape> _gameShapeArray;
 	private ClientKeyEventHandler _clientKeyEventHandler;
 	private Renderer _renderer;
+	ClientGameStateReceiver _gameStateReceiver;
 
 
 	public static void main(String[] args)
@@ -73,7 +74,13 @@ public class ClientMain extends JFrame implements KeyListener {
 			_renderer = new Renderer(800, 800, this);
 			this.addKeyListener(this);
 			_clientKeyEventHandler = new ClientKeyEventHandler(out);
-			
+
+			//start thread that handles all output from server and GUI updating
+			_gameStateReceiver = new ClientGameStateReceiver(_renderer);
+			Thread gameReceiver = new Thread(_gameStateReceiver);
+			gameReceiver.start();
+
+
 
 		} 
 		catch (Exception e) 
@@ -83,6 +90,7 @@ public class ClientMain extends JFrame implements KeyListener {
 		}
 
 		System.out.println("End of Client Thread");
+
 
 	}
 

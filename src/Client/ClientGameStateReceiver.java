@@ -11,17 +11,10 @@ import Renderer.ShapeType;
 public class ClientGameStateReceiver implements Runnable
 {    
 	private int _id;
-	private final int MAX_PLAYERS;
-
-	//for testing
 	private Renderer _renderer;
 
-	public ClientGameStateReceiver(int id, int max, Renderer renderer)
+	public ClientGameStateReceiver(Renderer renderer)
 	{	
-		_id =id;
-		MAX_PLAYERS = max;
-
-		//for testing
 		_renderer = renderer;
 	}
 
