@@ -77,7 +77,9 @@ public class ClientMain extends JFrame implements KeyListener {
 			String ipAddress = "228.0.0.4";
 			_gameStateReceiver = new ClientGameStateReceiver(_renderer, ipAddress);
 			Thread gameReceiver = new Thread(_gameStateReceiver);
+
 			gameReceiver.start();
+			gameReceiver.join();
 
 		} 
 		catch (Exception e) 

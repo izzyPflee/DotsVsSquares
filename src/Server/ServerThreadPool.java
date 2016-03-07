@@ -107,4 +107,9 @@ public class ServerThreadPool
 
 	}
 
+	public void startWorkerThreads() {
+
+		for(ServerWorkerThread thread: _threadPool)
+			thread.start();
+	}
 }

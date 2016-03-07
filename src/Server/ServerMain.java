@@ -34,6 +34,8 @@ public class ServerMain {
 
 			}
 
+			_serverThreadPool.startWorkerThreads();
+
 			//start server listener
 			_serverListener = new ServerListener(_serverThreadPool);
 			_serverListener.start();

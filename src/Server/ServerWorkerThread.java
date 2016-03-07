@@ -31,7 +31,7 @@ public class ServerWorkerThread extends Thread
 			{
 
 				Socket socket = _threadPool.getNewClient();
-				_threadPool._gameShapes[_id] = new GameShape(1, ShapeType.SQUARE, rand.nextInt(800), rand.nextInt(800), 10, 10);
+				_threadPool._gameShapes[_id] = new GameShape(20, ShapeType.SQUARE, rand.nextInt(800), rand.nextInt(800), 100, 100);
 				GameShape shape = _threadPool._gameShapes[_id];
 				clientInput = socket.getInputStream();
 

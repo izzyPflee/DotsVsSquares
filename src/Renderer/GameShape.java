@@ -83,9 +83,9 @@ public class GameShape implements Serializable{
                 break;
             case VK_RIGHT: _x += _moveSpeed;
                 break;
-            case VK_UP: _y += _moveSpeed;
+            case VK_UP: _y -= _moveSpeed;
                 break;
-            case VK_DOWN: _y -= _moveSpeed;
+            case VK_DOWN: _y += _moveSpeed;
                 break;
             default:
                 break;

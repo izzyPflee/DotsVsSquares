@@ -50,6 +50,9 @@ public class ServerListener extends Thread{
 
 					out.write(1); //there is room you are getting connect to the server now
 					out.flush();
+
+				_serverThreadPool.addNewClient(_socket);
+				System.out.println("Client added!");
 			
 			}
 
