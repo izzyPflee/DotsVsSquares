@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 /*
- * server listener listenes on a serverSOcket for new clients and then passes
+ * server listener listens on a serverSocket for new clients and then passes
  * the new sockets to the thread pool or tells the client that the number of players
  * is mazed out and the clinet needs to try again later
  */

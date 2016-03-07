@@ -10,28 +10,23 @@ import java.net.Socket;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import Client.ClientKeyEventHandler;
 import Renderer.GameShape;
 import Renderer.Renderer;
 
 public class ClientMain extends JFrame implements KeyListener {
 
-	private String serverAddress = "localhost"; //This needs to be changed to the servers hard coded address
-	private int portNumber = 9898;
-	private Socket socket;
-	private ArrayList<GameShape> gameShapeArray;
-	private ClientKeyEventHandler commandForServer;
-	private Renderer renderer;
+	private String _serverAddress = "localhost"; //This needs to be changed to the servers hard coded address
+	private int _portNumber = 9898;
+	private Socket _socket;
+	private ArrayList<GameShape> _gameShapeArray;
+	private ClientKeyEventHandler _clientKeyEventHandler;
+	private Renderer _renderer;
 
 
 	public static void main(String[] args)
@@ -45,32 +40,39 @@ public class ClientMain extends JFrame implements KeyListener {
 
 		try 
 		{
-			
-			socket = new Socket(serverAddress, portNumber);
-			PrintWriter out =  new PrintWriter(socket.getOutputStream(), true);
-			out.println("join");
-			//BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
-			System.out.println("Here in client");
-			//String startGame = in.readLine();
-			//System.out.println(startGame);
+			//Let server know that client wants to play
+			//Create new _socket for communicating with server using TCP/IP
 
-			//if(startGame.compareTo("NO ROOM") == 0) //if Server is full or unable to accept players it 
-			//{									//will respond with "NO ROOM"
-			//	System.out.println("No Room On Server Ending game");
-			//	return;
-			//}
+			_socket = new Socket(_serverAddress, _portNumber);
+
+			//Create stream to write
+			PrintWriter out =  new PrintWriter(_socket.getOutputStream(), true);
+			//get stream for input
+			BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
+
+			//for test
+//			System.out.println("Here in client");
+
+
+			//wait for server response
+			int serverResp = in.read();
+
+			//if Server is full or unable to accept players it
+			//will respond with a 0
+			if(serverResp == 0){
+				System.out.println("No Room On Server Ending game");
+				return;
+			}
 	
 
 			//======================================After connection with server is successful============
 			
 	
-			gameShapeArray = new ArrayList<GameShape>();
-			
+			_gameShapeArray = new ArrayList<GameShape>();
 
-			renderer = new Renderer(800, 800, this);
+			_renderer = new Renderer(800, 800, this);
 			this.addKeyListener(this);
-			commandForServer = new ClientKeyEventHandler(out);
+			_clientKeyEventHandler = new ClientKeyEventHandler(out);
 			
 
 		} 
@@ -80,13 +82,14 @@ public class ClientMain extends JFrame implements KeyListener {
 			e.printStackTrace();
 		}
 
+		System.out.println("End of Client Thread");
 
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		//send the command to the server
-		commandForServer.processKey(arg0);
+		_clientKeyEventHandler.processKey(arg0);
 	}
 
 	@Override
