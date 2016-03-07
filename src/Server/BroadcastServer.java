@@ -14,7 +14,7 @@ public class BroadcastServer implements Runnable
 	private ServerThreadPool _threadPool;
 	private static final int _MAX_PLAYERS_BYTES = 50;
 	
-	private final int _port = 8887;
+	private final int _port = 8888;
 	private final String _ipAddress;
 	
 	public BroadcastServer( ServerThreadPool threadPool, String ipAddress ) throws IOException 
@@ -86,7 +86,7 @@ public class BroadcastServer implements Runnable
 			while (_isServing)
 			{
 				sendBuf = buildByteArray();
-				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, _port);
+				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress,8887);
 				_socket.send(packet);
 
 				try{

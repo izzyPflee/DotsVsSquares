@@ -21,7 +21,7 @@ public class ServerMain {
 		ServerListener _serverListener;
 		BroadcastServer _broadcastServer;
 		ServerThreadPool _serverThreadPool;
-		String ipAddress = "244.0.0.0";
+		String ipAddress = "228.0.0.4";
 
 		try 
 		{

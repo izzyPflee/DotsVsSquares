@@ -50,16 +50,7 @@ public class ServerListener extends Thread{
 
 					out.write(1); //there is room you are getting connect to the server now
 					out.flush();
-				
-
-				int line = 0;
-
-				while((char)line != 'Q')
-				{ 
-					line = in.read();
-
-					System.out.println((char)line);
-				}
+			
 			}
 
 		}

@@ -49,25 +49,21 @@ public class ClientMain extends JFrame implements KeyListener {
 			//get stream for input
 			BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
 
-			//for test
-//			System.out.println("Here in client");
-
-
 			//wait for server response
 			int serverResp = in.read();
-
+			
 			//if Server is full or unable to accept players it
 			//will respond with a 0
 			if(serverResp == 0){
 				System.out.println("No Room On Server Ending game");
 				return;
 			}
-
-
-
-			//======================================After connection with server is successful============
-			System.out.println("Connection Established with server!");
-	
+			else
+			{
+				//======================================After connection with server is successful============
+				System.out.println("Connection Established with server!");
+			}
+			
 			_gameShapeArray = new ArrayList<GameShape>();
 
 			_renderer = new Renderer(800, 800, this);
@@ -78,12 +74,10 @@ public class ClientMain extends JFrame implements KeyListener {
 
 			//TODO: add a scanner to have the user input a ip-address to connect
 			//for now hard code a class D (multi-cast) ip address to receive server broadcasts
-			String ipAddress = "244.0.0.0";
+			String ipAddress = "228.0.0.4";
 			_gameStateReceiver = new ClientGameStateReceiver(_renderer, ipAddress);
 			Thread gameReceiver = new Thread(_gameStateReceiver);
 			gameReceiver.start();
-
-
 
 		} 
 		catch (Exception e) 

@@ -15,9 +15,6 @@ public class ClientKeyEventHandler {
 	
 	public ClientKeyEventHandler(PrintWriter out) throws IOException
 	{
-		//this.socket = socket;
-		
-		//out = new PrintWriter(socket.getOutputStream());
 		this.out = out;
 	}
 	
