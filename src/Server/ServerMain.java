@@ -33,9 +33,9 @@ public class ServerMain {
 			
 			//
 			
-			serverListener = new ServerListener();
-			serverListener.run();
-			serverListener.join();
+			_serverListener = new ServerListener();
+			_serverListener.run();
+			_serverListener.join();
 		} 
 		catch (Exception e) 
 		{

@@ -72,11 +72,15 @@ public class ServerThreadPool
 
 	public synchronized Socket getNewClient()
 	{
-		if(this._newClients.size() > 0)
+		while(this._newClients.size() == 0)
 		{
-			return this._newClients.remove(0);
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		return null;
+		return this._newClients.remove(0);
 	}
 
 }

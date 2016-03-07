@@ -76,9 +76,8 @@ public class GameShape implements Serializable{
     }
 //    updates shape's x,y values based on move speed
 
-    public void moveShape(KeyEvent e){
+    public void moveShape(int key){
 
-        int key = e.getKeyCode();
         switch(key){
             case VK_LEFT: _x -= _moveSpeed;
                 break;
