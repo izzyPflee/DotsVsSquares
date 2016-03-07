@@ -9,7 +9,6 @@ import Renderer.GameBoard;
 
 
 import Client.ClientGameStateReceiver;
-import Renderer.Renderer;
 import Renderer.ShapeType;
 
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class ServerTester {
 
 	}
 
->>>>>>> perrydev
 
 	public static void stressTest()
 	{
@@ -61,7 +59,6 @@ public class ServerTester {
 			System.out.println("TIME is: " + result/1000);
 
 			start = System.nanoTime();
->>>>>>> perrydev
 
 
 			for(GameShape shape: list)

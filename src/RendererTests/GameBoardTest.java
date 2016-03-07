@@ -1,10 +1,11 @@
-<<<<<<< HEAD
 package RendererTests;
 
-import Renderer.Renderer;
+import javax.swing.*;
+
 import Renderer.GameShape;
 import Renderer.GameBoard;
 import Renderer.ShapeType;
+import Renderer.Renderer;
 
 import javax.swing.*;
 
@@ -61,4 +62,3 @@ public class GameBoardTest extends JFrame implements KeyListener{
 
 	}
 }
-=======
