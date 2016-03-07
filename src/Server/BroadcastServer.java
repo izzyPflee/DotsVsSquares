@@ -1,26 +1,17 @@
 package Server;
-import java.awt.Point;
+
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 import Renderer.GameShape;
-import Renderer.ShapeType;
 
 public class BroadcastServer implements Runnable{
 
 	private DatagramSocket socket = null;
 	private boolean isServing = true;
-	private final int MAX_PLAYERS ;
 
-	int x = 0;
-	int y = 0;
-
-	public BroadcastServer( int maxPlayers ) throws IOException 
+	public BroadcastServer( ServerThreadPool threadPool ) throws IOException 
 	{
-		System.out.println("Size of Int " + Integer.SIZE);
-		MAX_PLAYERS = maxPlayers;
-
 		try{
 			socket = new DatagramSocket(8887);
 		}catch(Exception e)
@@ -39,6 +30,11 @@ public class BroadcastServer implements Runnable{
 		return (byte) num;
 	}
 
+	private byte[] buildByteArray()
+	{
+		byte[] sendBuf = new byte[50];
+		return sendBuf;
+	}
 
 	/*
 	 * This is just a test so far. It sents the 5 bytes representing a player's id and the top
@@ -58,33 +54,24 @@ public class BroadcastServer implements Runnable{
 			while (isServing)
 			{
 
-				byte[] sendBuf = new byte[5];//setRandomPlayerShapes(); //byteStream.toByteArray();
+				byte[] sendBuf = new byte[50];
 				
 				sendBuf[0] = 7; //player id
-				sendBuf[1] = convertIntToByteUpper(x); //player top half x
-				sendBuf[2] = convertIntToByteLower(x); //player bottom half x
-				sendBuf[3] = convertIntToByteUpper(y); //top half x
-				sendBuf[4] = convertIntToByteLower(y); //bottom half y
-
-				System.out.println("Server: x = " + x + " y = " +y);
-				x++; y++;
+				sendBuf[1] = convertIntToByteUpper(0); //player top half x
+				sendBuf[2] = convertIntToByteLower(0); //player bottom half x
+				sendBuf[3] = convertIntToByteUpper(0); //top half x
+				sendBuf[4] = convertIntToByteLower(0); //bottom half y			
 				
 				
 				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, 8888);
 
 				int byteCount = packet.getLength();
-				
-				//System.out.println("This is the size of the packet:" + byteCount);
+		
 				socket.send(packet);
-
 
 				try{
 					Thread.sleep(10);
 				}catch(Exception e){}
-
-				
-				if(x > 1024)
-					isServing = false;
 				
 			}//end while
 

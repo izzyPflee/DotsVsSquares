@@ -16,44 +16,56 @@ import java.net.SocketException;
  */
 
 public class ServerListener extends Thread{
-	
-	ServerSocket listener;
-	Socket socket;
-	int portNumber = 9898;
-	
-	public ServerListener() throws IOException
+
+	private ServerSocket _listener;
+	private Socket _socket;
+	private int _portNumber = 9898;
+	private ServerThreadPool _serverThreadPool;
+
+	public ServerListener(ServerThreadPool serverThreadPool) throws IOException
 	{
+		this._serverThreadPool = serverThreadPool;
 	}
-	
+
 	public void run()
 	{
 		try
 		{
-		this.listener = new ServerSocket(9898);
-		System.out.println("Server online");
-		
-		Socket socket;
-			socket = listener.accept();
-			
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			
-			int line = 0;
-			
-			while((char)line != 'Q')
-			{
-				 
-				line = in.read();
-				
-						
-				System.out.println((char)line);
+			this._listener = new ServerSocket(_portNumber);
+			System.out.println("__________Server Listener online__________");
 
+			while(_serverThreadPool.isServerKill() == false)
+			{
+				_socket = _listener.accept();
+
+				BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
+				PrintWriter out = new PrintWriter(_socket.getOutputStream(), true);
+
+				if(_serverThreadPool.getClientsConneted() >=  10)
+				{
+					out.write(0); //no room you cannot connect to the game
+					out.flush();
+					continue; //start the loop again;
+				}
+
+					out.write(1); //there is room you are getting connect to the server now
+					out.flush();
+				
+
+				int line = 0;
+
+				while((char)line != 'Q')
+				{ 
+					line = in.read();
+
+					System.out.println((char)line);
+				}
 			}
+
 		}
 		catch(Exception e)
 		{
-			
+
 		}
 	}
-
 }

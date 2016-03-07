@@ -18,9 +18,9 @@ public class ServerMain {
 		
 		
 		// TODO Auto-generated method stub
-		ServerListener serverListener;
-		BroadcastServer broadcastServer;
-		ServerThreadPool serverThreadPool;
+		ServerListener _serverListener;
+		BroadcastServer _broadcastServer;
+		ServerThreadPool _serverThreadPool;
 		try 
 		{
 			//Initialize Variables
