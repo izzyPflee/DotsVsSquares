@@ -1,26 +1,17 @@
 package Server;
-import java.awt.Point;
+
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 import Renderer.GameShape;
-import Renderer.ShapeType;
 
 public class BroadcastServer implements Runnable{
 
 	private DatagramSocket socket = null;
 	private boolean isServing = true;
-	private final int MAX_PLAYERS ;
 
-	int x = 0;
-	int y = 0;
-
-	public BroadcastServer( int maxPlayers ) throws IOException 
+	public BroadcastServer( GameShape[] gameShapes ) throws IOException 
 	{
-		System.out.println("Size of Int " + Integer.SIZE);
-		MAX_PLAYERS = maxPlayers;
-
 		try{
 			socket = new DatagramSocket(8887);
 		}catch(Exception e)
@@ -73,18 +64,12 @@ public class BroadcastServer implements Runnable{
 				DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, groupAddress, 8888);
 
 				int byteCount = packet.getLength();
-				
-				//System.out.println("This is the size of the packet:" + byteCount);
+		
 				socket.send(packet);
-
 
 				try{
 					Thread.sleep(10);
 				}catch(Exception e){}
-
-				
-				if(x > 1024)
-					isServing = false;
 				
 			}//end while
 
