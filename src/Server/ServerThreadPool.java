@@ -67,16 +67,24 @@ public class ServerThreadPool
 	public synchronized boolean addNewClient(Socket newClient)
 	{
 		this._newClients.add(newClient);
+		notifyAll();
 		return true;
 	}
 
 	public synchronized Socket getNewClient()
 	{
-		if(this._newClients.size() > 0)
+		while(this._newClients.size() == 0)
 		{
-			return this._newClients.remove(0);
+			try 
+			{
+				wait();
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
 		}
-		return null;
+			return this._newClients.remove(0);
 	}
 
 }
