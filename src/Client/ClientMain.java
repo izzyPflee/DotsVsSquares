@@ -77,10 +77,11 @@ public class ClientMain extends JFrame implements KeyListener {
 			_clientKeyEventHandler = new ClientKeyEventHandler(out);
 
 			//start thread that handles all output from server and GUI updating
-			_gameStateReceiver = new ClientGameStateReceiver(_renderer);
 
 			//TODO: add a scanner to have the user input a ip-address to connect
 			//TODO: hard code a class D (multi-cast) ip address to receive server broadcasts
+			String ipAddress = "244.0.0.0";
+			_gameStateReceiver = new ClientGameStateReceiver(_renderer, ipAddress);
 			Thread gameReceiver = new Thread(_gameStateReceiver);
 			gameReceiver.start();
 
