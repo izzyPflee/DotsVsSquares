@@ -64,10 +64,11 @@ public class ClientMain extends JFrame implements KeyListener {
 				System.out.println("No Room On Server Ending game");
 				return;
 			}
-	
+
+
 
 			//======================================After connection with server is successful============
-			
+			System.out.println("Connection Established with server!");
 	
 			_gameShapeArray = new ArrayList<GameShape>();
 
