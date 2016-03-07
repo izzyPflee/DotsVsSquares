@@ -116,7 +116,5 @@ public class ClientMain extends JFrame implements KeyListener {
 
 	}
 
-
-
 }
 

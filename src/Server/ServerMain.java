@@ -2,10 +2,12 @@ package Server;
 
 import java.io.IOException;
 
+import Renderer.GameShape;
+
 public class ServerMain {
 	
 	/*
-	 * server startes up it makes a thread pool
+	 * server starts up it makes a thread pool
 	 * the listener pool
 	 * 
 	 * a manager thread for game logic
@@ -17,8 +19,19 @@ public class ServerMain {
 		
 		// TODO Auto-generated method stub
 		ServerListener serverListener;
+		BroadcastServer broadcastServer;
+		ServerThreadPool serverThreadPool;
+		
 		try 
 		{
+			//Initialize Variables
+			
+			
+			//start 
+			//start the Thread Listener
+			
+			//
+			
 			serverListener = new ServerListener();
 			serverListener.run();
 			serverListener.join();
@@ -26,7 +39,6 @@ public class ServerMain {
 		catch (Exception e) 
 		{
 			System.out.println("ServerListener Failed");
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

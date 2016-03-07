@@ -46,10 +46,12 @@ public class Renderer{
         f.setVisible(true);
         f.setResizable(false);
     }
-    public void update(List<GameShape> gameShapes){
+    public void update(List<GameShape> gameShapes)
+    {
 
         _gameBoard.updateObjects(gameShapes);
     }
+
 
 }
 
