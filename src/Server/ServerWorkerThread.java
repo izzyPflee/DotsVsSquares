@@ -27,12 +27,19 @@ public class ServerWorkerThread extends Thread
 		try{
 			InputStream clientInput = null;
 			int keycode;
+			
 			while(! _threadPool.isServerKill())
 			{
 
 				Socket socket = _threadPool.getNewClient();
+				
+				System.out.println("Server worker #" + _id + " received a new client.");
+				
+				
 				_threadPool._gameShapes[_id] = new GameShape(20, ShapeType.SQUARE, rand.nextInt(800), rand.nextInt(800), 100, 100);
 				GameShape shape = _threadPool._gameShapes[_id];
+				_threadPool._gameShapes[_id].set_shapeID(_id); //assign id to GameShape
+				
 				clientInput = socket.getInputStream();
 
 				while(socket.isConnected())
@@ -40,10 +47,16 @@ public class ServerWorkerThread extends Thread
 					keycode = clientInput.read();
 					shape.moveShape(keycode);
 				}
+				
+				
+				
+				
+				
 			}
 		}
 		catch(IOException e)
 		{
+			System.out.println("Client disconnected from worker...");
 			e.printStackTrace();
 		}
 	}

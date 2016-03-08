@@ -16,12 +16,20 @@ public class ClientGameStateParser
 
 		for(int i = 0; i < gameState.length; i+=5)
 		{
-			int id = gameState[i];
-			int x = parseCoordinate(gameState[i + 1], gameState[i + 2]);
-			int y = parseCoordinate(gameState[i + 3], gameState[i + 4]);
-			gameShapes.add(new GameShape(1, ShapeType.SQUARE, x, y, 10, 10));
+			int isAlive = parseIsAlive(gameState[i]);
+			
+			if(isAlive == 1)
+			{
+				int id = parseID(gameState[i]);
+				int x = parseCoordinate(gameState[i + 1], gameState[i + 2]);
+				int y = parseCoordinate(gameState[i + 3], gameState[i + 4]);
+				
+				GameShape shape = new GameShape(1, ShapeType.SQUARE, x, y, 10, 10);
+				shape.set_shapeID(id);
+				gameShapes.add(shape);
+			}
 		}
-
+		
 		return gameShapes;
 	}
 
@@ -35,14 +43,11 @@ public class ClientGameStateParser
 
 	private static int parseID(byte b)
 	{
-		int topNibble = b >> 4;
-		topNibble &= 0xf;
-		return topNibble;
+		return b & 0x0F;
 	}
 
-	private static int parseShapeType(byte b)
+	private static int parseIsAlive(byte b)
 	{
-		int bottomNibble = b & 0xf;
-		return bottomNibble;
+		return (b & 0xF0) >> 4;
 	}
 }

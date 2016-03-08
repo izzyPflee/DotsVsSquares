@@ -15,7 +15,7 @@ import java.util.List;
 public class GameBoard extends JPanel {
 
 
-    private Shape[] _shapes;
+    private List<GameShape> _shapes;
 
     public GameBoard() {
 
@@ -35,40 +35,58 @@ public class GameBoard extends JPanel {
         if(_shapes == null)
             return;
 
-        for(Shape shape: _shapes){
+        for(GameShape shape: _shapes){
 
             //get dimensions of the shape(in the shape of a rectangle)
             //see: Shape interface
             Rectangle rect = shape.getBounds();
 
-            g.setColor(Color.CYAN);
+            g.setColor(getColor(shape.get_shapeID()));
             g.fillRect((int)rect.getX(), (int)rect.getY(), (int)rect.getWidth(), (int)rect.getHeight());
             g.drawRect((int)rect.getX(), (int)rect.getY(), (int)rect.getWidth(), (int)rect.getHeight());
         }
     }
 
-    //TODO: should we make new rectangles every frame update or keep array rectangles?
 
     public void updateObjects(List<GameShape> gameShapes){
 
-        //allocate space for shape
-        _shapes = new Shape[gameShapes.size()];
-
-        for(int i = 0; i < gameShapes.size(); i++){
-            GameShape curShape = gameShapes.get(i);
-            //create rectangle object for square
-            if(curShape.get_shapeType() == ShapeType.SQUARE){
-                _shapes[i] = new Rectangle(curShape.get_x(),curShape.get_y(), curShape.get_w(), curShape.get_h());
-            }
-            //add support for circles
-
-        }
-
+    	_shapes = gameShapes;
+  
         this.repaint();
-
     }
 
-
+    //returns color based on assigned id
+    public Color getColor(int id)
+    {
+    	switch(id)
+    	{
+    	
+			case 0:
+				return Color.GRAY;
+			case 1:
+				return Color.BLUE;
+			case 2:
+				return Color.RED;
+			case 3:
+				return Color.YELLOW;
+			case 4:
+				return Color.ORANGE;
+			case 5:
+				return Color.MAGENTA;
+			case 6:
+				return Color.WHITE;
+			case 7:
+				return Color.CYAN;
+			case 8:
+				return Color.GREEN;
+			case 9:
+				return Color.PINK;
+			default:
+				return Color.DARK_GRAY;
+    	
+    	}
+    	
+    }
 
 
 }

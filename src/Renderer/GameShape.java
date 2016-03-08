@@ -100,8 +100,8 @@ public class GameShape implements Serializable{
         return _shapeID;
     }
 
-    public void set_shapeID(int _shapeID) {
-        this._shapeID = _shapeID;
+    public void set_shapeID(int shapeID) {
+        this._shapeID = shapeID;
     }
 
     public int get_moveSpeed() {
@@ -165,5 +165,10 @@ public class GameShape implements Serializable{
 
     public void set_shapeType(ShapeType _shapeType) {
         this._shapeType = _shapeType;
+    }
+    
+    public Rectangle getBounds()
+    {
+    	return new Rectangle(get_x(), get_y(), get_w(), get_h());
     }
 }
