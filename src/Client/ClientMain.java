@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import Renderer.GameBoard;
 import Renderer.GameShape;
 import Renderer.Renderer;
 
@@ -66,7 +67,7 @@ public class ClientMain extends JFrame implements KeyListener {
 			
 			_gameShapeArray = new ArrayList<GameShape>();
 
-			_renderer = new Renderer(800, 800, this);
+			_renderer = new Renderer(GameBoard.WORLD_BOUNDS, GameBoard.WORLD_BOUNDS, this);
 			this.addKeyListener(this);
 			_clientKeyEventHandler = new ClientKeyEventHandler(out);
 
@@ -79,6 +80,7 @@ public class ClientMain extends JFrame implements KeyListener {
 			Thread gameReceiver = new Thread(_gameStateReceiver);
 
 			gameReceiver.start();
+			
 			gameReceiver.join();
 
 		} 
@@ -97,6 +99,9 @@ public class ClientMain extends JFrame implements KeyListener {
 	public void keyPressed(KeyEvent arg0) {
 		//send the command to the server
 		_clientKeyEventHandler.processKey(arg0);
+		
+		
+		
 	}
 
 	@Override

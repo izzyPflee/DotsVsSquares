@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class GameBoard extends JPanel
 {
-	public static final int WORLD_BOUNDS = 800;
+	public static final int WORLD_BOUNDS = 500;
 	
     private List<GameShape> _shapes;
 
@@ -67,7 +67,7 @@ public class GameBoard extends JPanel
 			case 1:
 				return Color.BLUE;
 			case 2:
-				return Color.RED;
+				return Color.PINK;
 			case 3:
 				return Color.YELLOW;
 			case 4:
@@ -81,7 +81,7 @@ public class GameBoard extends JPanel
 			case 8:
 				return Color.GREEN;
 			case 9:
-				return Color.PINK;
+				return Color.RED;
 			default:
 				return Color.DARK_GRAY;
     	

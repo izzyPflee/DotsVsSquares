@@ -19,9 +19,8 @@ public class Renderer{
 
     private JFrame _jFrame;
 
-
-
-    public Renderer(int gridX, int gridY, JFrame jFrame) {
+    public Renderer(int gridX, int gridY, JFrame jFrame) 
+    {
         _gridX = gridX;
         _gridY = gridY;
 
@@ -32,7 +31,6 @@ public class Renderer{
 
 
     }
-
 
     private void initGameRendererWindow(){
         System.out.println("Created GUI on EDT? "+ SwingUtilities.isEventDispatchThread());

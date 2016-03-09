@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.util.Random;
 
+import Renderer.GameBoard;
 import Renderer.GameShape;
 import Renderer.ShapeType;
 
@@ -20,21 +21,14 @@ public class ServerWorkerThread extends Thread
 		_id = id;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public void run()
 	{
 		Random rand = new Random();
+		int keycode = 0; 
 		try{
 			InputStream clientInput = null;
-			int keycode;
+			
 			
 			while(! _threadPool.isServerKill())
 			{
@@ -44,7 +38,7 @@ public class ServerWorkerThread extends Thread
 				System.out.println("Server worker #" + _id + " received a new client.");
 				
 				
-				_threadPool._gameShapes[_id] = new GameShape(20, ShapeType.SQUARE, rand.nextInt(800), rand.nextInt(800), 100, 100);
+				_threadPool._gameShapes[_id] = new GameShape(10, ShapeType.SQUARE, rand.nextInt(GameBoard.WORLD_BOUNDS) / 20, rand.nextInt(GameBoard.WORLD_BOUNDS) / 20, 20, 20);
 				GameShape shape = _threadPool._gameShapes[_id];
 				_threadPool._gameShapes[_id].set_shapeID(_id); //assign id to GameShape
 				
@@ -53,13 +47,19 @@ public class ServerWorkerThread extends Thread
 				while(socket.isConnected())
 				{
 					keycode = clientInput.read();
+					
+					if(keycode == -1) //If disconnected signal received
+					{
+						_threadPool._gameShapes[_id] = null;
+						socket.close();
+						break;
+					}
+					
 					shape.moveShape(keycode);
+					
 				}
 				
-				
-				
-				
-				
+				System.out.println("client #" + _id + " disconnected");
 			}
 		}
 		catch(IOException e)

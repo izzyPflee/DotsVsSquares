@@ -75,22 +75,42 @@ public class GameShape implements Serializable{
         return false;
     }
 
-    private boolean canMoveInBounds(int move, boolean movingX)
+    private int canMoveInBounds(int move, boolean movingX, boolean direction)
     {
     	
-    	if(movingX)
+    	if(movingX && direction) //moving left
     	{
-	    	if( move >= 0 && move <= GameBoard.WORLD_BOUNDS)
-	    		return true;
+    		//System.out.println("CLIENT MOVING LEFT");
+	    	if( move < 0)
+	    		return 0;
 	    	else
-	    		return false;
-    	}else
+	    		return move;
+    	}else if(movingX && ! direction) //moving right
     	{
-    		if( move >= 0 && move <= GameBoard.WORLD_BOUNDS -(_h / 2))
-	    		return true;
-	    	else
-	    		return false;
+    		//System.out.println("CLIENT MOVING RIGHT");
+    		if( move >= GameBoard.WORLD_BOUNDS - _w)
+    			return GameBoard.WORLD_BOUNDS - _w;
+    		else
+    			return move;
     	}
+    	else if(! movingX && direction ) //moving up
+    	{
+    		//System.out.println("CLIENT MOVING UP");
+    		if( move < 0 )
+    			return 0;
+    		else
+    			return move;
+    	}
+    	else if(! movingX && ! direction)// moving down
+    	{
+    		//System.out.println("CLIENT MOVING DOWN");
+    		if(move >= GameBoard.WORLD_BOUNDS - (_h * 2))
+	    		return GameBoard.WORLD_BOUNDS - (_h * 2);
+	    	else
+	    		return move;
+    	}
+    	else
+    		return move;
     }
     
 //  updates shape's x,y values based on move speed
@@ -100,17 +120,14 @@ public class GameShape implements Serializable{
 
         switch(key){
             case VK_LEFT: 
-            	if(canMoveInBounds(_x - _moveSpeed, true))
-            		_x -= _moveSpeed; break;
+            	
+            		_x = canMoveInBounds(_x - _moveSpeed, true, true); break;
             case VK_RIGHT: 
-            	if(canMoveInBounds(_x + _moveSpeed, true))
-            		_x += _moveSpeed; break;
+            		_x = canMoveInBounds(_x + _moveSpeed, true, false); break;
             case VK_UP: 
-            	if(canMoveInBounds(_y - _moveSpeed, false))
-            		_y -= _moveSpeed; break;
+            		_y = canMoveInBounds(_y - _moveSpeed, false, true); break;
             case VK_DOWN: 
-            	if(canMoveInBounds(_y + _moveSpeed, false))
-            		_y += _moveSpeed; break;
+            		_y = canMoveInBounds(_y + _moveSpeed, false, false); break;
             default:
                 break;
         }

@@ -44,7 +44,6 @@ public class ServerMain {
 			Thread _broadcastThread = new Thread(_broadcastServer);
 			 _broadcastThread.start();
 			 
-			 
 			 _broadcastThread.join();
 			_serverListener.join();
 		} 

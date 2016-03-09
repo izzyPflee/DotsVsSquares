@@ -24,7 +24,7 @@ public class ClientGameStateParser
 				int x = parseCoordinate(gameState[i + 1], gameState[i + 2]);
 				int y = parseCoordinate(gameState[i + 3], gameState[i + 4]);
 				
-				GameShape shape = new GameShape(1, ShapeType.SQUARE, x, y, 10, 10);
+				GameShape shape = new GameShape(10, ShapeType.SQUARE, x, y, 20, 20);
 				shape.set_shapeID(id);
 				gameShapes.add(shape);
 			}
