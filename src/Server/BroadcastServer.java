@@ -65,9 +65,9 @@ public class BroadcastServer implements Runnable
 			{
 				x = shape.get_x();
 				y = shape.get_y();
-				System.out.println("Shape ID: " + shape.get_shapeID());
+				//System.out.println("Shape ID: " + shape.get_shapeID());
 				int  id =  shape.get_shapeID() | 0x10 ;
-				System.out.println("Actually Shape ID: " + id);
+				//System.out.println("Actually Shape ID: " + id);
 				sendBuf[i++] = (byte) ( shape.get_shapeID() | 0x10 ); //player color id
 				sendBuf[i++] = convertIntToByteUpper(x); //player top half x
 				sendBuf[i++] = convertIntToByteLower(x); //player bottom half x

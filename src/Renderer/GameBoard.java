@@ -12,9 +12,10 @@ import java.util.List;
 /**
  * Gameboard used from pong project
  */
-public class GameBoard extends JPanel {
-
-
+public class GameBoard extends JPanel
+{
+	public static final int WORLD_BOUNDS = 800;
+	
     private List<GameShape> _shapes;
 
     public GameBoard() {

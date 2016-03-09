@@ -74,19 +74,43 @@ public class GameShape implements Serializable{
 
         return false;
     }
-//    updates shape's x,y values based on move speed
 
+    private boolean canMoveInBounds(int move, boolean movingX)
+    {
+    	
+    	if(movingX)
+    	{
+	    	if( move >= 0 && move <= GameBoard.WORLD_BOUNDS)
+	    		return true;
+	    	else
+	    		return false;
+    	}else
+    	{
+    		if( move >= 0 && move <= GameBoard.WORLD_BOUNDS -(_h / 2))
+	    		return true;
+	    	else
+	    		return false;
+    	}
+    }
+    
+//  updates shape's x,y values based on move speed
+
+    
     public void moveShape(int key){
 
         switch(key){
-            case VK_LEFT: _x -= _moveSpeed;
-                break;
-            case VK_RIGHT: _x += _moveSpeed;
-                break;
-            case VK_UP: _y -= _moveSpeed;
-                break;
-            case VK_DOWN: _y += _moveSpeed;
-                break;
+            case VK_LEFT: 
+            	if(canMoveInBounds(_x - _moveSpeed, true))
+            		_x -= _moveSpeed; break;
+            case VK_RIGHT: 
+            	if(canMoveInBounds(_x + _moveSpeed, true))
+            		_x += _moveSpeed; break;
+            case VK_UP: 
+            	if(canMoveInBounds(_y - _moveSpeed, false))
+            		_y -= _moveSpeed; break;
+            case VK_DOWN: 
+            	if(canMoveInBounds(_y + _moveSpeed, false))
+            		_y += _moveSpeed; break;
             default:
                 break;
         }

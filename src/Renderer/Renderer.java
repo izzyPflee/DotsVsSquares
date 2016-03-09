@@ -48,7 +48,6 @@ public class Renderer{
     }
     public void update(List<GameShape> gameShapes)
     {
-
         _gameBoard.updateObjects(gameShapes);
     }
 
