@@ -64,8 +64,10 @@ public class ServerWorkerThread extends Thread
 		}
 		catch(IOException e)
 		{
+			_threadPool._gameShapes[_id] = null;
+			//socket.close();
 			System.out.println("Client disconnected from worker...");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }

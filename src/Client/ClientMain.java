@@ -10,25 +10,31 @@ import java.net.Socket;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
 import Renderer.GameBoard;
-import Renderer.GameShape;
+//import Renderer.GameShape;
 import Renderer.Renderer;
 
 public class ClientMain extends JFrame implements KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String _serverAddress = "localhost"; //This needs to be changed to the servers hard coded address
 	private int _portNumber = 9898;
 	private Socket _socket;
-	private ArrayList<GameShape> _gameShapeArray;
+	//private ArrayList<GameShape> _gameShapeArray;
 	private ClientKeyEventHandler _clientKeyEventHandler;
 	private Renderer _renderer;
-	ClientGameStateReceiver _gameStateReceiver;
+	private ClientGameStateReceiver _gameStateReceiver;
+	private boolean _NotQuitting = true;
 
 
 	public static void main(String[] args)
@@ -65,7 +71,7 @@ public class ClientMain extends JFrame implements KeyListener {
 				System.out.println("Connection Established with server!");
 			}
 			
-			_gameShapeArray = new ArrayList<GameShape>();
+			//_gameShapeArray = new ArrayList<GameShape>();
 
 			_renderer = new Renderer(GameBoard.WORLD_BOUNDS, GameBoard.WORLD_BOUNDS, this);
 			this.addKeyListener(this);
@@ -98,8 +104,19 @@ public class ClientMain extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		//send the command to the server
-		_clientKeyEventHandler.processKey(arg0);
-		
+		this._NotQuitting = _clientKeyEventHandler.processKey(arg0);
+		if(!_NotQuitting)
+		{
+			try 
+			{
+				this._socket.close(); //removes the client from the game and makes the terminal an oberver terminal
+			} 
+			catch (IOException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		
 	}

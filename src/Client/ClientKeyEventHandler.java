@@ -5,7 +5,7 @@ package Client;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Socket;
+//import java.net.Socket;
 
 
 public class ClientKeyEventHandler {
@@ -18,7 +18,7 @@ public class ClientKeyEventHandler {
 		this.out = out;
 	}
 	
-	public void processKey(KeyEvent input)
+	public boolean processKey(KeyEvent input)
 	{
 		int key = input.getKeyCode();
 		
@@ -38,16 +38,22 @@ public class ClientKeyEventHandler {
 
 		case KeyEvent.VK_RIGHT:{} //move right
 
-		case KeyEvent.VK_D:{} //move right
-
-		case KeyEvent.VK_Q: // client quitting disconnect 
+		case KeyEvent.VK_D:
 		{
-			//System.out.println("THIS SHOULD CRASH NOW -- we need to add a listener on the server side");
 			out.write(key);
 			out.flush();
 			break;
+		} //move right
+
+		case KeyEvent.VK_Q: // client quitting disconnect 
+		{
+			System.out.println("Client Leaving Game, Now just Observing");
+			out.write(key);
+			out.flush();
+			return false;
 		}
 
-		}			
+		}
+		return true;
 	}
 }
