@@ -75,7 +75,7 @@ public class ClientMain extends JFrame implements KeyListener {
 
 			//TODO: add a scanner to have the user input a ip-address to connect
 			//for now hard code a class D (multi-cast) ip address to receive server broadcasts
-			String ipAddress = "228.0.0.4";
+			String ipAddress = "224.0.0.1";
 			_gameStateReceiver = new ClientGameStateReceiver(_renderer, ipAddress);
 			Thread gameReceiver = new Thread(_gameStateReceiver);
 
@@ -98,10 +98,7 @@ public class ClientMain extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		//send the command to the server
-		_clientKeyEventHandler.processKey(arg0);
-		
-		
-		
+		_clientKeyEventHandler.processKey(arg0);	
 	}
 
 	@Override
